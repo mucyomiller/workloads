@@ -11,6 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::match(['get','post'],'/',['as'=>'login','uses'=>'StaffController@login']);
+Route::match(['get','post'],'/login',['as'=>'login','uses'=>'StaffController@login']);
+Route::match(['post','get'],'forget',['as'=>'forget','uses'=> 'StaffController@forget']);
+Route::match(['post','get'],'register',['as'=>'register','uses'=>'RegisterController@index']);
+//dashboard routes
+Route::group(['prefix'=>'dashboard'],function(){
+	//Route::get('/', ['uses'=>'StaffController@index', 'as'=>'dashboard.index']);
+	Route::get('index',['as'=>'dashboard.index','uses'=>'StaffController@home']);
+  	//Route::get('delete', ['uses'=>'StaffController@delete', 'as'=>'delete']);
+  	//Route::match(['get', 'post'],'courses', ['uses'=>'CourseController@index', 'as'=>'courses']);
+  	Route::get('logout',['as'=>'dashboard.logout','uses'=> function(){
+		Auth::logout();
+		return redirect('/');
+	}]);
 });
