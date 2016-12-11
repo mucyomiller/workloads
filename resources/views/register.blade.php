@@ -6,28 +6,42 @@
 <img class="img img-responsive" src="{{asset('img/ur-logo1.jpg')}}">
 <h3 class="text-center m-t-10"> Create a new Account </h3>
 </div> 
-
+@if(Session::has('success'))
+<div class="alert alert-success alert-dismissable">
+<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+{{Session('success')}}
+</div>
+@endif
 <form method="POST" action="{{route('register')}}" class="form-horizontal m-t-40">
 @if(isset($_GET['staff_id']))
-<div class="form-group">
+<div class="form-group {{$errors->has('email')?'has-error':''}}">
     <div class="col-xs-12">
-        <input class="form-control" type="text" name="email" placeholder="Enter Your Email" required/>
+        <input class="form-control" type="text" name="email" placeholder="Enter Your Email" />
+        @if($errors->has('email'))
+        <span class="help-block">{{$errors->first('email')}}</span>
+        @endif
     </div>
 </div>
-<div class="form-group">
+<div class="form-group {{$errors->has('work_email')?'has-error':''}}">
     <div class="col-xs-12">
-        <input class="form-control" type="text" name="work_email" placeholder="Enter Your Work Email" required/>
-        <input type="hidden" name="staff_id" value={{ $_GET['staff_id'] }} />
-        <input type="hidden" name="step2" value="step2"/>
+        <input class="form-control" type="text" name="work_email" placeholder="Enter Your Work Email" />
+        @if($errors->has('work_email'))
+        <span class="help-block">{{$errors->first('work_email')}}</span>
+        @endif
     </div>
 </div>
+<input type="hidden" name="staff_id" value={{ $_GET['staff_id'] }} />
+<input type="hidden" name="step2" value="step2"/>
 @else
-<div class="form-group">
+<div class="form-group {{$errors->has('staff_id')?'has-error':''}}">
     <div class="col-xs-12">
-        <input class="form-control" type="text" name="staff_id" placeholder="Enter Your Staff ID" required/>
-        <input type="hidden" name="step1" value="step1"/>
+        <input class="form-control" type="text" name="staff_id" value="{{ old('staff_id', '')}}"  placeholder="Enter Your Staff ID" />
+        @if($errors->has('staff_id'))
+        <span class="help-block">{{$errors->first('staff_id')}}</span>
+        @endif
     </div>
 </div>
+<input type="hidden" name="step1" value="step1"/>
 <div class="form-group ">
     <div class="col-xs-12">
         <label class="cr-styled">
