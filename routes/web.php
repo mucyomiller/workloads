@@ -14,7 +14,7 @@
 Route::match(['get','post'],'/',['as'=>'login','uses'=>'StaffController@login']);
 Route::match(['get','post'],'/login',['as'=>'login','uses'=>'StaffController@login']);
 Route::match(['post','get'],'forget',['as'=>'forget','uses'=> 'StaffController@forget']);
-Route::match(['post','get'],'register',['as'=>'register','uses'=>'RegisterController@index']);
+Route::match(['post','get'],'register',['as'=>'register','uses'=>'StaffController@register']);
 //dashboard routes
 Route::group(['prefix'=>'dashboard'],function(){
 	//Route::get('/', ['uses'=>'StaffController@index', 'as'=>'dashboard.index']);
