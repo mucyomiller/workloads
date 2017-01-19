@@ -62,7 +62,7 @@
 <a data-toggle="dropdown" class="dropdown-toggle" href="#">
 <img alt="" src="{{ asset('dashboard/img/User_Avatar.png')}}" class="img-circle profile-img thumb-sm">
 <span class="username">
-{{Auth::user()->firstname??''}} {{Auth::user()->surname??''}}
+{{Auth::user()->firstname?Auth::user()->firstname:''}} {{Auth::user()->surname?Auth::user()->surname:''}}
 </span><span class="caret"></span>
 </a>
 <ul class="dropdown-menu pro-menu fadeInUp animated" tabindex="5003" style="overflow: hidden; outline: none;">
