@@ -14,7 +14,7 @@
             <div class="input-group"> 
                 <input type="password" class="form-control" placeholder="Enter Your Staff ID"> 
                 {{ csrf_field() }}
-                <span class="input-group-btn"> <button type="submit" name="submit" class="btn btn-primary">Reset</button> </span> 
+                <span class="input-group-btn"> <button type="submit" name="submit" class="btn btn-primary">Reset password</button> </span> 
             </div> 
         </div> 
         

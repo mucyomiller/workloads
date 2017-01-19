@@ -14,7 +14,8 @@
             <nav class="navigation">
                 <ul class="list-unstyled">
                 <li class="active"><a href="#"><i class="ion-home"></i> <span class="nav-label">Dashboard</span></a></li>
-                <li class="has-submenu"><a href="#"><i class="ion-person-stalker"></i> <span class="nav-label">course</span></a>
+                <li><a href="{{ route('dashboard.profile')}}"><i class="ion-person"></i> <span class="nav-label">Profile</span></a></li>
+                <li class="has-submenu"><a href="#"><i class="ion-ios-book-outline"></i> <span class="nav-label">Workloads</span></a>
                 <ul class="list-unstyled">
                 <li><a href="#">list</a></li>
                 </ul>

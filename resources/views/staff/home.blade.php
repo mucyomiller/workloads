@@ -4,13 +4,13 @@
 <!-- Page Content Start -->
 <div class="wraper container-fluid">
 <div class="page-title"> 
-    <h3 class="title">Course</h3> 
+    <h3 class="title">Subjects</h3> 
 </div>
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-color panel-info">
             <div class="panel-heading"> 
-                <h3 class="panel-title"><i class="ion-home"></i><i class="pull-right">Course Table</i></h3> 
+                <h3 class="panel-title"><i class="ion-home"></i><i class="pull-right">Workload Table</i></h3> 
             </div> 
             <div class="panel-body">
              @if(isset($courses) && count($courses)) 

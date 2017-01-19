@@ -15,8 +15,9 @@
         <link href="{{asset('css/animate.css')}}" rel="stylesheet">
 
         <!--Icon-fonts css-->
-        <link href="{{asset('dashbaord/assets/font-awesome/css/font-awesome.css')}}" rel="stylesheet" />
-        <link href="{{asset('dashbaord/assets/ionicon/css/ionicons.min.css')}}" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/c63e40f3de.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+
 
         <!-- Custom styles for this template -->
         <link href="{{asset('css/style.css')}}" rel="stylesheet">

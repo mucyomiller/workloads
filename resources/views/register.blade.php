@@ -6,12 +6,6 @@
 <img class="img img-responsive" src="{{asset('img/ur-logo1.jpg')}}">
 <h3 class="text-center m-t-10"> Create a new Account </h3>
 </div> 
-@if(Session::has('success'))
-<div class="alert alert-success alert-dismissable">
-<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-{{Session('success')}}
-</div>
-@endif
 <form method="POST" action="{{route('register')}}" class="form-horizontal m-t-40">
 @if(isset($_GET['staff_id']))
 <div class="form-group {{$errors->has('email')?'has-error':''}}">
