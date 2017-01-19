@@ -25,7 +25,11 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('work_email')->unique()->nullable();
             $table->boolean('registered')->default(false);
+            $table->boolean('active')->default(false);
             $table->string('password');
+            $table->integer('departement_id')->unsigned();
+            $table->integer('leadership_position_id')->unsigned();
+            $table->integer('academic_position_id')->unsigned();
             $table->rememberToken();
             $table->timestamps();
         });
