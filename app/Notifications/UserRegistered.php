@@ -43,6 +43,7 @@ class UserRegistered extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+                    ->cc($this->user->work_email)
                     ->greeting('hello '.$this->user->firstname)
                     ->success()
                     ->subject('University of Rwanda Workloads System registration')

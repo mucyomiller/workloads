@@ -7,19 +7,24 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Notifications\UserRegistered;
 use Auth;
+use Hash;
 use Validator;
 use App\User;
-use App\Course;
 use Cart;
 class StaffController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth',['except'=>['login','register','logout']]);
+        $this->middleware('auth',['except'=>['login','forget','register','logout','setpassword']]);
     }
     public function index()
     {
     	return view('register');
+    }
+    public function profile(Request $request)
+    {
+        $user = $request->user();
+        return view('staff.profile')->with(['user'=>$user]);
     }
     public function login(Request  $request)
     {
@@ -31,14 +36,22 @@ class StaffController extends Controller
 	            	]);
     		$staff_id=$request->input('staff_id');
        		$password=$request->input('password');
-	       if (Auth::attempt(['staff_id' => $staff_id, 'password' => $password])) {
-	            // Authentication passed...
-	            return redirect()->route('dashboard.index');
-	        }
-	        else
-	        {
-	        	return redirect()->back();
-	        }
+            $activated = User::where('staff_id',$staff_id)->first()->registered;
+            if(!$activated)
+            {
+                if($password != User::where('staff_id',$staff_id)->first()->password)
+                {
+                 return redirect()->route('login')->withErrors(['password'=>'Unrecognised generated password'])->withInput();   
+                }
+                return redirect()->route('login',['generated'=>$password,'staff_id'=>$staff_id]);
+            }
+            else
+            {
+                if (Auth::attempt(['staff_id' => $staff_id, 'password' => $password])) {
+                // Authentication passed...
+                return redirect()->route('dashboard.index');
+            }
+            }
     	}
     	else
     	{
@@ -73,8 +86,8 @@ class StaffController extends Controller
                     $user->password = str_random(6);
                     $user->save();
                     $user->notify(new UserRegistered($user));
-                    return redirect()->back()
-                    ->with(['success'=>'check one of your provided email for next step']);
+                    return redirect()->route('login')
+                    ->with(['info'=>'check one of your provided email for next step']);
              }
          }
          else
@@ -86,7 +99,8 @@ class StaffController extends Controller
     {
     	if($request->isMethod('POST'))
     	{
-
+            return response()
+            ->json(['info'=>'return back soon!']);
     	}
         else
         {
@@ -95,7 +109,26 @@ class StaffController extends Controller
     }
     public function home(Request $request)
     {
-        $courses = Course::all();
+        $courses = [];
         return view('staff.home')->with(['courses'=>$courses]);
+    }
+    public function setpassword(Request $request)
+    {
+        $this->validate($request, [
+                     'password'      =>  'required|confirmed',
+                     'staff_id'      => 'required',
+                    ]);
+        $user = User::where('staff_id',$request->staff_id)->first();
+        if($user->registered == 0)
+        {
+            $user->password = Hash::make($request->password);
+            $user->registered = 1;
+            $user->save();
+            return redirect()->route('login')->with(['info'=>'password successful set you can now login!']);
+        }
+        else
+        {
+            return redirect()->route('login')->with(['info'=>'You are already registred you can now login& forget password!']);
+        }
     }
 }
